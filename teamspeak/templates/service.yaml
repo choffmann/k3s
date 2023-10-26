@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.appName }}-voice
+spec:
+  selector:
+    app: {{ .Values.appName }}
+  ports:
+    - protocol: UDP
+      name: teamspeak-voice
+      port: 9987
+      targetPort: 9987
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.appName }}-filetransfer
+spec:
+  selector:
+    app: {{ .Values.appName }}
+  ports:
+    - protocol: TCP
+      name: teamspeak-filetransfer
+      port: 30033
+      targetPort: 30033
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.appName }}-serverquery
+spec:
+  selector:
+    app: {{ .Values.appName }}
+  ports:
+    - protocol: TCP
+      name: teamspeak-serverquery
+      port: 10011
+      targetPort: 10011
+  type: LoadBalancer

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.appName }}-homekit
+spec:
+  selector:
+    app: {{ .Values.appName }}
+  ports:
+    - protocol: TCP
+      port: 21063
+      targetPort: 21063
+  type: LoadBalancer
+  

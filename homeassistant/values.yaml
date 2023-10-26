@@ -1,0 +1,13 @@
+
+replicaCount: 1
+appName: homeassistant
+
+config:
+  timezone: Europe/Berlin
+  config_path: /home/choffmann/k3s/homeassistant
+
+image:
+  repository: ghcr.io/home-assistant/home-assistant
+  pullPolicy: IfNotPresent
+  restartPolicy: Always
+  tag: stable

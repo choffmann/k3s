@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.appName }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      name: {{ .Values.appName }}
+      labels:
+        app: {{ .Values.appName }}
+    spec:
+      containers:
+        - name: {{ .Values.appName }}
+          image: {{ .Values.config.image }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9987
+              protocol: UDP
+            - containerPort: 10011
+            - containerPort: 30033
+          env:
+            - name: TS3SERVER_LICENSE
+              value: "accept"
+            - name: TIME_ZONE
+              value: "Europe/Berlin"
+            - name: TS_UPDATE
+              value: "1"
+            - name: DIST_UPDATE
+              value: "1"
+          volumeMounts:
+            - mountPath: /var/ts3server/
+              name: ts3-persistent
+      volumes:
+        - name: ts3-persistent
+          persistentVolumeClaim:
+            claimName: {{ .Values.appName }}-pvc
+      restartPolicy: Always
