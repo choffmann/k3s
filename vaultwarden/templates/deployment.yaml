@@ -6,7 +6,7 @@ metadata:
   labels:
     app: {{ .Values.appName }}
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: {{ .Values.appName }}
@@ -18,14 +18,16 @@ spec:
     spec:
       containers:
         - name: {{ .Values.appName }}
-          image: vaultwarden/server:latest
+          image: vaultwarden/server:raspberry
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
           volumeMounts:
             - mountPath: /data/
-              name: {{ .Values.appName }}-volume
+              name: {{ .Values.appName }}-pvc
       volumes:
-        - name: {{ .Values.appName }}-volume
+        - name: {{ .Values.appName }}-pvc
+          persistentVolumeClaim:
+            claimName: {{ .Values.appName }}-pvc
       restartPolicy: Always
       

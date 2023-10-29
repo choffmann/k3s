@@ -1,4 +1,4 @@
-replicaCount: 2
+replicaCount: 1
 appName: ts3
 namespace: ts3
 host: ts.jgdperl.com

@@ -4,8 +4,9 @@ metadata:
   name: {{ .Values.appName }}-pvc
   namespace: {{ .Values.namespace }}
 spec:
+  storageClassName: longhorn
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
