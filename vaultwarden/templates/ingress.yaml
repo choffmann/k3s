@@ -18,6 +18,13 @@ spec:
                 name: {{ .Values.appName }}-service
                 port:
                   number: 80
+          - path: /notifications/hub
+            pathType: Exact
+            backend:
+              service:
+                name: {{ .Values.appName }}-service
+                port:
+                  number: 3012
   tls:
     - hosts:
         - {{ .Values.url }}

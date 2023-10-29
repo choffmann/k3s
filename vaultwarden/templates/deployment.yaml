@@ -6,7 +6,7 @@ metadata:
   labels:
     app: {{ .Values.appName }}
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: {{ .Values.appName }}
@@ -18,10 +18,41 @@ spec:
     spec:
       containers:
         - name: {{ .Values.appName }}
-          image: vaultwarden/server:raspberry
+          image: vaultwarden/server:latest
           imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.appName }}-configmap
+          env:
+            - name: SMTP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.appName }}-smtp
+                  key: emailUser
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.appName }}-smtp
+                  key: emailPassword
+            - name: PUSH_INSTALLATION_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.appName }}-push
+                  key: pushId
+            - name: PUSH_INSTALLATION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.appName}}-push
+                  key: pushKey
+            - name: ADMIN_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.appName}}-admin
+                  key: adminToken
           ports:
             - containerPort: 80
+            - name: websocket
+              containerPort: 3012
           volumeMounts:
             - mountPath: /data/
               name: {{ .Values.appName }}-pvc

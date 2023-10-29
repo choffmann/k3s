@@ -7,8 +7,12 @@ spec:
   selector:
     app: {{ .Values.appName }}
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 80
       targetPort: 80
-
+    - name: websocket
+      protocol: TCP
+      port: 3012
+      targetPort: 3012
   
