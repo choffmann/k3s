@@ -1,0 +1,11 @@
+replicaCount: 1
+name: prometheus
+namespace: monitoring
+
+image:
+  repository: prom/prometheus
+  tag: "v2.48.1"
+  pullPolicy: IfNotPresent
+
+ingress:
+  hostname: prometheus.jgdperl.com

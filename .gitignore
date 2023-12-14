@@ -169,3 +169,5 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,intellij+all,helm
 /vaultwarden/templates/secrets/
+/monitoring/prometheus/templates/secrets/
+/monitoring/prometheus/basic-auth

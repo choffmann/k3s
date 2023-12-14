@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Values.name}}
+  labels:
+    app: {{.Values.name}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{.Values.name}}
+  template:
+    metadata:
+      name: {{.Values.name}}
+      labels:
+        app: {{.Values.name}}
+    spec:
+      containers:
+        - name: {{.Values.name}}
+          image: {{.Values.image.repository}}:{{.Values.image.tag}}
+          imagePullPolicy: {{.Values.image.pullPolicy}}
+          args:
+            - "--config.file=/etc/prometheus/prometheus.yml"
+            - "--storage.tsdb.path=/prometheus/"
+          ports:
+            - containerPort: 9090
+          resources:
+            requests:
+              cpu: 500m
+              memory: 500M
+            limits:
+              cpu: 1
+              memory: 1Gi
+          volumeMounts:
+            - mountPath: /etc/prometheus/
+              name: prometheus-config-value
+            - mountPath: /prometheus/
+              name: prometheus-pv
+      volumes:
+        - name: prometheus-config-value
+          configMap:
+            defaultMode: 420
+            name: prometheus-server-conf
+        - name: prometheus-pv
+          persistentVolumeClaim:
+            claimName: {{ .Values.name }}-pvc
+      restartPolicy: Always
+      

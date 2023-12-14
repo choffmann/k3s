@@ -1,0 +1,41 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{.Values.name}}-ingress
+  namespace: {{.Values.namespace}}
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    cert-manager.io/cluster-issuer: letsencrypt-{{ .Values.name }}
+    ingress.kubernetes.io/ssl-redirect: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.middlewares: {{.Values.namespace}}-svc-{{.Values.name}}-headers@kubernetescrd
+    ingress.kubernetes.io/auth-type: "basic"
+    ingress.kubernetes.io/auth-secret: "basic-auth"
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: {{ .Values.ingress.hostname }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.name }}-service
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - {{ .Values.ingress.hostname }}
+      secretName: {{ .Values.name }}-tls
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: svc-{{.Values.name}}-headers
+  namespace: {{.Values.namespace}}
+spec:
+  basicAuth:
+    removeHeader: true
+    secret: basic-auth
