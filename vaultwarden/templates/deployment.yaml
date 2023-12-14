@@ -18,8 +18,8 @@ spec:
     spec:
       containers:
         - name: {{ .Values.appName }}
-          image: vaultwarden/server:latest
-          imagePullPolicy: IfNotPresent
+          image: "vaultwarden/server:{{.Values.image.version}}"
+          imagePullPolicy: {{.Values.image.pullPolicy}}
           envFrom:
             - configMapRef:
                 name: {{ .Values.appName }}-configmap
@@ -51,8 +51,6 @@ spec:
                   key: adminToken
           ports:
             - containerPort: 80
-            - name: websocket
-              containerPort: 3012
           volumeMounts:
             - mountPath: /data/
               name: {{ .Values.appName }}-pvc

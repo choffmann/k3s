@@ -5,6 +5,9 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: traefik
     cert-manager.io/cluster-issuer: letsencrypt-{{ .Values.appName }}
+    ingress.kubernetes.io/ssl-redirect: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   ingressClassName: traefik
   rules:
@@ -24,7 +27,7 @@ spec:
               service:
                 name: {{ .Values.appName }}-service
                 port:
-                  number: 3012
+                  number: 80
   tls:
     - hosts:
         - {{ .Values.url }}
