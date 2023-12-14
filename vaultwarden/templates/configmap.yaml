@@ -12,5 +12,5 @@ data:
   SMTP_SECURITY: "starttls"
   WEBSOCKET_ENABLED: "true"
   DATA_FOLDER: "/data"
-  DOMAIN: "https://vault.jgpderl.com"
+  DOMAIN: "https://{{.Values.url}}"
   PUSH_ENABLED: "true"
