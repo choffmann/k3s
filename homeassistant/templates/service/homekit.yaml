@@ -9,5 +9,10 @@ spec:
     - protocol: TCP
       port: 21063
       targetPort: 21063
+      name: homekit
+    - protocol: UDP
+      port: 5353
+      targetPort: 5353
+      name: homekit-udp
   type: LoadBalancer
   

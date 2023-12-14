@@ -33,6 +33,9 @@ spec:
               name: discovery
             - containerPort: 21063
               name: homekit
+            - containerPort: 5353
+              protocol: UDP
+              name: homekit-udp
             - containerPort: 5683
               name: coiot
             - containerPort: 5683
