@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.appName }}
-  namespace: {{ .Values.appName }}
+  namespace: {{ .Values.namespace }}
   labels:
     app: {{ .Values.appName }}
 spec:
@@ -16,33 +16,22 @@ spec:
       labels:
         app: {{ .Values.appName }}
     spec:
+      hostNetwork: true
       containers:
         - name: {{ .Values.appName }}
-          image: {{ .Values.image.repository }}
+          image: {{ .Values.image.repository }}:{{.Values.image.tag}}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
             - mountPath: /config
-              name: config
-          env:
-            - name: TZ
-              value: {{ .Values.config.timezone }}
-          ports:
-            - containerPort: 8123
-              name: default
-            - containerPort: 1900
-              name: discovery
-            - containerPort: 21063
-              name: homekit
-            - containerPort: 5353
-              protocol: UDP
-              name: homekit-udp
-            - containerPort: 5683
-              name: coiot
-            - containerPort: 5683
-              name: coiot-udp
-              protocol: UDP
-      restartPolicy: {{ .Values.image.restartPolicy }}
+              name: homeassistant-pv
+            - mountPath: /config/configuration.yaml
+              subPath: configuration.yaml
+              name: configuration
+      restartPolicy: Always
       volumes:
-        - name: config
-          hostPath:
-            path: {{ .Values.config.config_path }}
+        - name: configuration
+          configMap:
+            name: {{.Values.appName}}-config
+        - name: homeassistant-pv
+          persistentVolumeClaim:
+            claimName: {{.Values.appName}}-pvc
