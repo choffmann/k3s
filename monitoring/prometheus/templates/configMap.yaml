@@ -140,3 +140,7 @@ data:
           - source_labels: [ __meta_kubernetes_service_name ]
             action: replace
             target_label: kubernetes_name
+      - job_name: "fritz-exporter"
+        scrape_interval: 60s
+        static_configs:
+          - targets: [ "fritzbox-exporter:9787" ]

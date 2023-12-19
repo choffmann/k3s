@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{.Values.appName}}-config
+data:
+  FRITZ_NAME: "Fritz!Box 7530 AX"
+  FRITZ_HOSTNAME: "fritz.box"
+  FRITZ_HOST_INFO: "true"

@@ -1,0 +1,16 @@
+replicaCount: 1
+appName: fritzbox-exporter
+namespace: monitoring
+
+image:
+  repository: pdreker/fritz_exporter
+  tag: 2.3.1
+  pullPolicy: IfNotPresent
+
+config:
+  exporter_port: 9787
+  devices:
+    - name: Fritz!Box 7530 AX
+      hostname: fritz.box
+      username: prometheus
+      password: fAXiUehqMe8Hmk

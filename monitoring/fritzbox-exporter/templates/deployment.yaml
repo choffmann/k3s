@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Values.appName}}
+  labels:
+    app: {{.Values.appName}}
+spec:
+  replicas: {{.Values.replicaCount}}
+  selector:
+    matchLabels:
+      app: {{.Values.appName}}
+  template:
+    metadata:
+      name: {{.Values.appName}}
+      labels:
+        app: {{.Values.appName}}
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+      containers:
+        - name: {{.Values.appName}}
+          image: {{.Values.image.repository}}:{{.Values.image.tag}}
+          imagePullPolicy: {{.Values.image.pullPolicy}}
+          envFrom:
+            - configMapRef:
+                name: {{.Values.appName}}-config
+          env:
+            - name: FRITZ_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.appName }}-fritzbox-user
+                  key: user
+            - name: FRITZ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.appName }}-fritzbox-user
+                  key: password
+          ports:
+            - containerPort: 9787
+              name: metrics
+              protocol: TCP
+      restartPolicy: Always
