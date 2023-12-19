@@ -5,8 +5,8 @@ metadata:
   namespace: {{ .Values.namespace }}
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   storageClassName: longhorn
   resources:
     requests:
-      storage: 1Gi
+      storage: 5Gi
