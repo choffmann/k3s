@@ -24,6 +24,13 @@ config:
   homekit:
     name: HomeAssistant Bridge
     port: 21063
+    filter:
+      include_entity_globs:
+        - switch.lufter_badezimmer
+        - switch.schlafzimmer_lampe_*
+        - sensor.schlafzimmer_lampe_*
+        - switch.schreibtisch_*
+        - sensor.schreibtisch_*
 
 image:
   repository: ghcr.io/home-assistant/home-assistant

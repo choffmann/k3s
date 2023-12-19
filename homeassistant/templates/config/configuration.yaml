@@ -12,9 +12,6 @@ data:
     # Load frontend themes from the themes folder
     frontend:
       themes: !include_dir_merge_named themes
-    automation: !include automations.yaml
-    script: !include scripts.yaml
-    scene: !include scenes.yaml
 
     http:
       use_x_forwarded_for: true
@@ -26,12 +23,13 @@ data:
       name: {{.Values.config.name}}
       external_url: "https://{{.Values.config.baseUrl}}"
       time_zone: {{.Values.config.timezone}}
-    logger:
-      default: warning
-      logs:
-        homeassistant.components.homekit: debug
-        pyhap: debug
 
     homekit:
       - name: {{.Values.config.homekit.name}}
         port: {{.Values.config.homekit.port}}
+        advertise_ip: 192.168.178.40
+        filter:
+          include_entity_globs:
+            {{- range .Values.config.homekit.filter.include_entity_globs}}
+              - {{ . }}
+            {{- end}}

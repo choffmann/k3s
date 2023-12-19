@@ -26,12 +26,17 @@ spec:
               name: homeassistant-pv
             - mountPath: /config/configuration.yaml
               subPath: configuration.yaml
-              name: configuration
+              name: config
+            - mountPath: /run/dbus
+              name: bluetooth
       restartPolicy: Always
       volumes:
-        - name: configuration
+        - name: config
           configMap:
             name: {{.Values.appName}}-config
         - name: homeassistant-pv
           persistentVolumeClaim:
             claimName: {{.Values.appName}}-pvc
+        - name: bluetooth
+          hostPath:
+            path: /run/dbus

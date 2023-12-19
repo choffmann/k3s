@@ -8,5 +8,36 @@ spec:
     app: {{ .Values.appName }}
   ports:
     - protocol: TCP
+      name: http
       targetPort: 8123
-      port: 80
+      port: 8123
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.appName }}-coiot-service
+  namespace: {{ .Values.appName }}
+spec:
+  selector:
+    app: {{ .Values.appName }}
+  ports:
+    - port: 5683
+      protocol: UDP
+      targetPort: 5683
+      name: coiot
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.appName }}-homekit-service
+  namespace: {{ .Values.appName }}
+spec:
+  selector:
+    app: {{ .Values.appName }}
+  ports:
+    - port: {{.Values.config.homekit.port}}
+      targetPort: {{.Values.config.homekit.port}}
+      name: homekit
+  type: LoadBalancer
