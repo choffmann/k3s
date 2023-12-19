@@ -1,0 +1,4 @@
+secret:
+  namespace: sealed-secrets
+  image:
+    tag: v0.24.5
