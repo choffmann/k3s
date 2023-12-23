@@ -31,6 +31,7 @@ config:
         - sensor.schlafzimmer_lampe_*
         - switch.schreibtisch_*
         - sensor.schreibtisch_*
+        - sensor.shellyht_79a76f_*
 
 image:
   repository: ghcr.io/home-assistant/home-assistant
