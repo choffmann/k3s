@@ -2,6 +2,5 @@ replicaCount: 1
 appName: ts3
 namespace: ts3
 host: ts.jgdperl.com
-mount_path: /home/choffmann/k3s/teamspeak
 config:
   image: ertagh/teamspeak3-server:latest

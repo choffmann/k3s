@@ -4,7 +4,7 @@ metadata:
   name: {{ .Values.appName }}-pvc
   namespace: {{ .Values.namespace }}
 spec:
-  storageClassName: longhorn
+  storageClassName: nfs-client
   accessModes:
     - ReadWriteMany
   resources:

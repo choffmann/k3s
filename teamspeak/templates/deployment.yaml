@@ -35,7 +35,7 @@ spec:
             - name: DIST_UPDATE
               value: "1"
           volumeMounts:
-            - mountPath: /var/ts3server/
+            - mountPath: /teamspeak/save/
               name: ts3-persistent
       volumes:
         - name: ts3-persistent
