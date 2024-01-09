@@ -7,7 +7,6 @@ metadata:
   namespace: {{ $.Values.appName }}
   annotations:
     kubernetes.io/ingress.class: traefik
-    cert-manager.io/cluster-issuer: letsencrypt-{{.name}}
 spec:
   ingressClassName: traefik
   rules:
@@ -21,10 +20,6 @@ spec:
                 name: {{ $.Values.appName }}-service
                 port:
                   name: http
-  tls:
-    - hosts:
-        - {{.path}}
-      secretName: {{ $.Values.appName }}-{{.name}}tls
 ---
 {{- end}}
 {{- end}}
