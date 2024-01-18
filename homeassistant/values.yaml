@@ -21,6 +21,9 @@ config:
   unit_system: metric
   timezone: Europe/Berlin
   config_path: /home/choffmann/k3s/homeassistant
+  trusted_proxies:
+    - 10.42.0.0/16
+    - 192.168.178.0/24
   homekit:
     name: HomeAssistant Bridge
     port: 21063
@@ -36,4 +39,4 @@ config:
 image:
   repository: ghcr.io/home-assistant/home-assistant
   pullPolicy: IfNotPresent
-  tag: 2023.12.3
+  tag: 2024.1.3

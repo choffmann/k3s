@@ -16,7 +16,9 @@ data:
     http:
       use_x_forwarded_for: true
       trusted_proxies:
-        - 192.168.178.0/24
+        {{- range .Values.config.trusted_proxies }}
+          - {{ . }}
+        {{- end}}
 
     homeassistant:
       unit_system: {{.Values.config.unit_system}}
