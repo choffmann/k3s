@@ -1,0 +1,37 @@
+replicaCount: 1
+appName: paperless-ngx
+namespace: paperless-ngx
+
+ingress:
+  enable: true
+  hostnames:
+    - path: docs.jgdperl.com
+      name: jgdperl
+
+image:
+  paperless:
+    name: webserver
+    repository: ghcr.io/paperless-ngx/paperless-ngx
+    tag: 2.3.3
+    pullPolicy: IfNotPresent
+  broker:
+    name: redis
+    repository: docker.io/library/redis
+    tag: 7
+    pullPolicy: IfNotPresent
+  gotenberg:
+    name: gotenberg
+    repository: docker.io/gotenberg/gotenberg
+    tag: 7.10
+    pullPolicy: IfNotPresent
+  tika:
+    name: tika
+    repository: ghcr.io/paperless-ngx/tika
+    tag: 2.9.0-minimal
+    pullPolicy: IfNotPresent
+
+config:
+  env:
+    - PAPERLESS_URL: https://docs.jgdperl.com
+    - PAPERLESS_OCR_LANGUAGES: deu
+    - PAPERLESS_TIME_ZONE: Europe/Berlin
