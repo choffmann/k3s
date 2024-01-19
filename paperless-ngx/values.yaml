@@ -12,7 +12,7 @@ image:
   paperless:
     name: webserver
     repository: ghcr.io/paperless-ngx/paperless-ngx
-    tag: 2.3.3
+    tag: 2.4.0
     pullPolicy: IfNotPresent
   broker:
     name: redis
