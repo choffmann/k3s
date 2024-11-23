@@ -169,3 +169,11 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,intellij+all,helm
 /monitoring/prometheus/basic-auth
+
+age.agekey
+
+**/secrets/**
+**/secret/**
+
+!**/secrets/*.enc.yaml
+!**/secrets/*.enc.yaml
