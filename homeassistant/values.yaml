@@ -31,8 +31,8 @@ config:
         - switch.lufter_badezimmer
         - switch.schlafzimmer_lampe_*
         - sensor.schlafzimmer_lampe_*
-        - switch.schreibtisch_*
-        - sensor.schreibtisch_*
+        - switch.smart_plug_*
+        - sensor.smart_plug_*
         - sensor.shellyht_79a76f_*
 
 image:
