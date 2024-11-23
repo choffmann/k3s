@@ -1,6 +1,0 @@
-replicaCount: 1
-appName: ts3
-namespace: ts3
-host: ts.jgdperl.com
-config:
-  image: ertagh/teamspeak3-server:latest

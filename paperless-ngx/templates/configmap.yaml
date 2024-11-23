@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{.Values.appName}}-configmap
-data:
-  {{- range $key, $value := .Values.config.env}}
-    {{$key}}: {{$value | quote}}
-  {{- end}}
