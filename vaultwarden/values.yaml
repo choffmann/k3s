@@ -3,5 +3,5 @@ namespace: vaultwarden
 url: vault.jgdperl.com
 
 image:
-  version: 1.32.5
+  version: 1.34.1
   pullPolicy: IfNotPresent
